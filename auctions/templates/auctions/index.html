@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<h2 class="text-center my-4">Active Listings</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        {% if listings %}
+            {% for listing in listings %}
+                <div class="col-md-10 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="row g-0 align-items-center">
+                            {% if listing.image_url %}
+                                <div class="col-md-4">
+                                    <img src="{{ listing.image_url }}" class="img-fluid rounded-start" alt="{{ listing.title }}" style="height: 100%; object-fit: cover;">
+                                </div>
+                            {% endif %}
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ listing.title }}</h5>
+                                    <p class="card-text"><strong>Price:</strong> ${{ listing.starting_bid }}</p>
+                                    <p class="card-text text-muted">{{ listing.description|truncatechars:150 }}</p>
+                                    <p class="text-muted"><small>Created on {{ listing.created_at|date:"M d, Y, h:i A" }}</small></p>
+                                    <a href="{% url 'Particularlistingspage' listing.id %}" class="btn btn-primary btn-sm">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center text-muted">No active listings available. Start by creating your first listing!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
