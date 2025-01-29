@@ -9,5 +9,18 @@
             "src": "/(.*)",
             "dest": "commerce/wsgi.py"
         }
-    ]
+    ],
+    "build": {
+        "env": {
+            "PIP_NO_CACHE_DIR": "off",
+            "PIP_DISABLE_PIP_VERSION_CHECK": "on",
+            "PIP_DEFAULT_TIMEOUT": "100"
+        },
+        "steps": [
+            {
+                "name": "Install dependencies",
+                "run": "pip install --upgrade pip && pip install -r requirements.txt"
+            }
+        ]
+    }
 }
