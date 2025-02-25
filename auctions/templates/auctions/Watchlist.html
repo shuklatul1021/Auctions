@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Your Watchlist</h2>
+{% if user.is_authenticated %}
+    {% if watchlist_items %}
+        <div class="row">
+            {% for item in watchlist_items %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        {% if item.image_url %}
+                            <img src="{{ item.image_url }}" class="card-img-top" alt="{{ item.title }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="/static/images/default-image.jpg" class="card-img-top" alt="Default Image" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <p class="card-text text-muted">Starting Bid: ${{ item.starting_bid }}</p>
+                            <a href="{% url 'Particularlistingspage' item.id %}" class="btn btn-primary btn-sm">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            Your watchlist is empty. Start adding items!
+        </div>
+    {% endif %}
+{% else %}
+    Not signed in.
+{% endif %}
+</div>
+{% endblock %}

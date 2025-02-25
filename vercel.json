@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+      {
+          "src": "commerce/wsgi.py",
+          "use": "@vercel/python",
+          "config": { "maxLambdaSize": "15mb" }
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "commerce/wsgi.py"
+      }
+  ],
+  "build": {
+      "env": {
+          "CUSTOM_BUILD_COMMAND": "./build.sh"
+      }
+  }
+}
